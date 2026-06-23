@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Axon POS</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="mark">AX</span>
+          <div><h1>AXON</h1></div>
+        </div>
+        <nav class="sideNav" aria-label="POS views">
+          <button class="sideNavBtn active" type="button" data-tab="transactionView">New Transaction</button>
+          <button class="sideNavBtn" type="button" data-tab="memberView">Member List</button>
+          <button class="sideNavBtn" type="button" data-tab="allTransactionView">All Transactions</button>
+        </nav>
+        <section class="panel compact">
+          <h2>Promo</h2>
+          <div id="campaignList" class="campaigns"></div>
+        </section>
+      </aside>
+      <section class="workspace">
+        <div class="topbar">
+          <p id="syncState"></p>
+        </div>
+        <section id="transactionView" class="view active">
+          <div class="checkout">
+            <div class="panel catalog">
+              <div class="sectionHead">
+                <h2>Menu</h2>
+                <input id="productSearch" type="search" placeholder="Search item" style="width:auto" />
+              </div>
+              <div id="productGrid"></div>
+            </div>
+            <div class="panel cart">
+              <div class="sectionHead">
+                <h2>Cart</h2>
+                <button type="button" id="clearCart" class="ghostBtn">Clear</button>
+              </div>
+              <form id="checkoutForm">
+                <div class="fieldRow">
+                  <label>Date<input id="saleDate" name="date" type="date" required /></label>
+                  <label>Cashier
+                    <div class="cashierSearch">
+                      <input id="cashier" name="cashier" type="search" placeholder="Search cashier" autocomplete="off" required />
+                      <div id="cashierDropdown" class="searchDropdown" hidden></div>
+                    </div>
+                  </label>
+                </div>
+                <label>Member / Customer</label>
+                <div class="memberSearch">
+                  <input id="memberSearch" type="search" placeholder="Search member ID or name" autocomplete="off" />
+                  <div id="memberDropdown" class="memberDropdown" hidden></div>
+                </div>
+                <div id="selectedMember" class="selectedMember muted">No member selected</div>
+                <div class="fieldRow">
+                  <label>Buyer<input id="buyer" name="buyer" placeholder="Customer name" required /></label>
+                  <label>Contact<input id="phone" name="phone" placeholder="WhatsApp" /></label>
+                </div>
+                <div class="fieldRow">
+                  <label>Type
+                    <div class="typeSearch">
+                      <input id="customerType" name="type" type="search" placeholder="Search type" autocomplete="off" />
+                      <div id="typeDropdown" class="searchDropdown" hidden></div>
+                    </div>
+                  </label>
+                  <label>Payment
+                    <div class="paymentSearch">
+                      <input id="payment" name="payment" placeholder="Search payment" autocomplete="off" required />
+                      <div id="paymentDropdown" class="searchDropdown" hidden></div>
+                    </div>
+                  </label>
+                </div>
+                <div id="cartLines"></div>
+                <div class="manualAdd">
+                  <input id="customName" placeholder="Custom item" />
+                  <input id="customPrice" type="number" placeholder="Price" />
+                  <button type="button" id="addCustom" class="ghostBtn">Add</button>
+                </div>
+                <div class="totalBox">
+                  <span>Total</span>
+                  <strong id="cartTotal">Rp0</strong>
+                </div>
+                <button class="primaryBtn" type="submit">Save Transaction</button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <section id="memberView" class="view">
+          <div class="panel fullPanel">
+            <div class="sectionHead"><h2>Members</h2><span id="memberHint"></span></div>
+            <div id="memberList" class="tableList"></div>
+          </div>
+        </section>
+        <section id="allTransactionView" class="view">
+          <div class="panel fullPanel">
+            <div class="sectionHead"><h2>Today's Transactions</h2><span>from Transaction sheet</span></div>
+            <div id="todaySales" class="tableList transactionList"></div>
+            <details class="transactionDetails">
+              <summary>All Transactions</summary>
+              <div id="recentSales" class="tableList transactionList"></div>
+            </details>
+          </div>
+        </section>
+      </section>
+    </main>
+    <dialog id="memberDialog">
+      <form id="memberForm" method="dialog" class="dialogCard">
+        <h2>Create Member</h2>
+        <label>Name<input id="memberName" required /></label>
+        <label>Contact<input id="memberContact" placeholder="628..." /></label>
+        <div class="dialogActions">
+          <button type="button" id="cancelMember" class="ghostBtn">Cancel</button>
+          <button class="primaryBtn" value="default">Save Member</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="qrisDialog">
+      <div class="dialogCard qrisCard">
+        <div class="sectionHead">
+          <h2>QR Midtrans</h2>
+          <button type="button" id="closeQris" class="ghostBtn">Close</button>
+        </div>
+        <p id="qrisMeta" class="muted"></p>
+        <p id="qrisStatus" class="qrisStatus">Open the Midtrans payment page, then confirm after the customer has paid.</p>
+        <img id="qrisImage" class="qrisImage" alt="QR Midtrans payment code" hidden />
+        <a id="qrisOpenLink" class="primaryBtn qrisLink" href="#" target="_blank" rel="noopener">Open Payment Page</a>
+        <button type="button" id="confirmQrisPaid" class="primaryBtn">Payment Done</button>
+      </div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

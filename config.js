@@ -1,4 +1,4 @@
 window.AXON_POS_CONFIG = {
-  APPS_SCRIPT_URL: 'GANTI_DENGAN_URL_APPS_SCRIPT_DEV_KAMU',
-  API_TOKEN: 'AXON_POS_DEV_2026'
+  APPS_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxhWEwjilGanwrs5HHVgcyseAKF6F9mcLuQITf4KvQVoM0ju4FBchorQbypfAc5MJOJ/exec',
+  API_TOKEN: 'POSDEV2026'
 };
